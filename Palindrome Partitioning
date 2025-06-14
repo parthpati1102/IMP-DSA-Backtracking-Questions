@@ -1,0 +1,39 @@
+lass Solution {
+public:
+  bool checkPalindrome(int i  , int j , string &check){
+      while(i <= j){
+          if(check[i] != check[j]){
+             return false;
+          }
+
+          i++;
+          j--;
+      }
+
+      return true;
+  }
+   void usingRecurssion(string &s , int index , vector<vector<string>> &ans ,vector<string> &finalStr){
+        if(index >= s.size()){
+            ans.push_back(finalStr);
+            return;
+        }
+
+        for(int i = index ; i < s.size() ; i++){
+            if(checkPalindrome(index , i , s)){
+                finalStr.push_back(s.substr(index , i - index + 1));
+                usingRecurssion(s , i + 1 , ans ,finalStr);
+                finalStr.pop_back();
+            }
+        }
+   }
+    vector<vector<string>> partition(string s) {
+
+        vector<vector<string>> ans;
+
+        vector<string> finalStr;
+
+        usingRecurssion(s , 0 , ans , finalStr);
+
+        return ans;
+    }
+};
